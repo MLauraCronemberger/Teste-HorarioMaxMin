@@ -50,6 +50,39 @@ public class HorarioMaxMinController {
 		return intervaloFinal;
 	}
 	
+	@GetMapping(value="/intervaloTudoDinamico/{id}")
+		float pegarIntervaloTudoGenerico(@PathVariable Integer id) {
+			LocalTime horarioMinimo = repository.findById(id).get().getHorarioMin();
+			LocalTime horarioMaximo= repository.findById(id).get().getHorarioMax();			
+			LocalTime intervalo = repository.findById(id).get().getIntervaloAtendimentos();
+			int intervaloMinutos = intervalo.toSecondOfDay() / 60;
+			
+			int variavelMultiplicacao = 0;
+			
+			switch(intervaloMinutos) {
+			case 60:
+				variavelMultiplicacao=1;
+		        break;
+			case 30:
+				variavelMultiplicacao=2;
+		        break;
+			case 15:
+				variavelMultiplicacao=4;
+		        break;
+		    default:
+		        throw new IllegalArgumentException("Intervalo não suportado: " + intervaloMinutos);
+			}
+			
+			long intervaloHorarios = Duration.between(horarioMinimo, horarioMaximo).toMinutes();
+			
+			float intervaloFinal = (float)((intervaloHorarios / 60.0) * variavelMultiplicacao + 1);
+
+			return intervaloFinal;
+			
+		}
+	
+	}
+	
 	
 
-}
+
