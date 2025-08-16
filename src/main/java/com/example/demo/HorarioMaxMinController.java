@@ -25,8 +25,8 @@ public class HorarioMaxMinController {
 		return dados;
 	}
 	
-	@GetMapping(value="/intervaloHorarios/{id}")
-	int pegarIntervalo(@PathVariable Integer id) {
+	@GetMapping(value="/intervaloHorariosInteiros/{id}")
+	int pegarIntervaloInteiro(@PathVariable Integer id) {
 		LocalTime horarioMinimo = repository.findById(id).get().getHorarioMin();
 		LocalTime horarioMaximo= repository.findById(id).get().getHorarioMax();
 		
@@ -37,5 +37,19 @@ public class HorarioMaxMinController {
 		return intervaloFinal;
 		
 	}
+	
+	@GetMapping(value="/intervaloHorariosGenericos/{id}")
+	float pegarIntervaloGenerico(@PathVariable Integer id) {
+		LocalTime horarioMinimo = repository.findById(id).get().getHorarioMin();
+		LocalTime horarioMaximo= repository.findById(id).get().getHorarioMax();
+		
+		long intervaloHorarios = Duration.between(horarioMinimo, horarioMaximo).toMinutes();
+		
+		float intervaloFinal = (float)((intervaloHorarios / 60.0) * 2 + 1);
+		
+		return intervaloFinal;
+	}
+	
+	
 
 }
