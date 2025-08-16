@@ -17,6 +17,7 @@ public class HorarioMaxMin {
 	private String nomeServico;
 	private LocalTime horarioMin;
 	private LocalTime horarioMax;
+	private LocalTime intervaloAtendimentos;
 	
 	
 	public Integer getId() {
@@ -43,6 +44,13 @@ public class HorarioMaxMin {
 	public void setHorarioMax(LocalTime horarioMax) {
 		this.horarioMax = horarioMax;
 	}
+	public LocalTime getIntervaloAtendimentos() {
+		return intervaloAtendimentos;
+	}
+	public void setIntervaloAtendimentos(LocalTime intervaloAtendimentos) {
+		this.intervaloAtendimentos = intervaloAtendimentos;
+	}
+	
 
 	
 }
